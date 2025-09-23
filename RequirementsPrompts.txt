@@ -1,0 +1,94 @@
+---------------------------PROMPT---------------------------
+
+I need a fully fleshed out Project Requirements Document (PRD) which clearly defines API endpoints, data models, and expected behaviors.. based on the criteria "Build a backend-only REST API for a web application of your choice. The API must support full CRUD operations and be structured for future frontend integration."... I have decided my webapp will be a subscription service tracker, which will allow you to track which services (ex. Netflix, gpt plus, adobe creative cloud) you subscribe to. I'd like to be able to list the price of each service, how often (weekly, monthly, yearly, etc) and on which day their payment is processed, and be able to choose custom 'accounts' such as paypal or my visa so I know where they are being billed. Based on those dates it would be nice to be able to see my daily, weekly, monthly, yearly, so on cost of all subscriptions. Also categories to sort the items into such as entertainment, utility, work, perhaps 'add custom category' as well. I'd like you to create the PRD for me, if you have any questions or want further context while writing feel free to ask. If there are any features you think would be a good fit, lets hear them as well before completing the document.
+
+
+---------------------------REPLY---------------------------
+
+I love the subscription service tracker concept! Before I create the comprehensive PRD, I have a few questions to ensure I capture all the requirements accurately:
+Clarifying Questions:
+User Management & Authentication:
+
+Should this support multiple users with individual accounts, or is it designed for single-user use?
+Do you want user registration/login functionality, or should I focus just on the subscription management for now?
+
+Subscription Features:
+
+For recurring billing dates, should the system calculate and show upcoming payment dates automatically?
+Would you like support for trial periods (e.g., "30-day free trial, then $9.99/monthly")?
+Should we track subscription status (active, paused, cancelled, expired)?
+Any interest in tracking price history (e.g., if Netflix raises prices)?
+
+Payment Accounts:
+
+Should payment accounts have additional details like last 4 digits, expiration dates, or just names?
+Any need to mark accounts as active/inactive?
+
+Analytics & Reporting:
+
+For cost calculations, should we handle prorated amounts (e.g., if someone starts a monthly subscription mid-month)?
+Would you like spending trends/comparisons (e.g., "You're spending 15% more than last month")?
+Any interest in budget alerts or spending limits per category?
+
+Potential Additional Features I'm Considering:
+
+Notifications/Reminders: Upcoming payment alerts, trial ending warnings
+Sharing Subscriptions: Track family/shared accounts (who pays, who uses)
+Cancellation Tracking: When you cancelled, money saved since cancellation
+Service Integration: Pull actual billing data from email/bank feeds (future enhancement)
+Export Functionality: CSV/PDF reports for budgeting apps
+
+Which of these resonate with you? Should I include any in the core PRD, or keep them as "future enhancements"?
+Once I have your input, I'll create a detailed PRD with all the API endpoints, data models, and behaviors clearly defined!
+
+
+---------------------------I answered the questions with yes or no---------------------------
+
+I've created a comprehensive Project Requirements Document for your Subscription Service Tracker API! This PRD includes everything you requested and more:
+Key Highlights:
+✅ What's Covered:
+
+Complete data models for subscriptions, payment accounts, categories, budget alerts, and notifications
+30+ API endpoints covering all CRUD operations
+Analytics and reporting capabilities with cost breakdowns and spending trends
+Trial period tracking with notification support
+Budget alerts and spending limits
+Export functionality (CSV, JSON, PDF)
+Service templates with icons and logos for popular services
+Comprehensive validation rules and error handling
+
+🎯 Special Features Added:
+
+Automatic next billing date calculations
+Spending comparison across time periods
+Budget violation detection
+Predefined category system with custom category support
+Service templates for quick setup of popular subscriptions
+Flexible notification preferences
+Multiple export formats
+
+🔧 Technical Considerations:
+
+Performance optimization strategies
+Security best practices
+Database indexing recommendations
+Caching strategies for analytics
+
+The API is designed to be completely frontend-agnostic, so you can build any type of frontend (web, mobile, desktop) that consumes these endpoints. The data models are normalized and flexible enough to handle various subscription types while maintaining data integrity.
+Would you like me to elaborate on any specific sections, modify certain endpoints, or add any additional features to the PRD?
+
+
+
+
+---------------------------Project Build Prompt---------------------------
+
+I need you to work with me to create a backend-only REST API for a web application, which is a subscription tracker. I have attached my project requirements. The API must support full CRUD operations and be structured for future frontend integration. I plan on deploying via render or vercel, if that matters. Not right now, but soon I will also be doing a frontend with the following requirements so keep them in mind while doing the backend, but we are not building the front right now: 
+
+Create a Project Requirements Document that clearly defines a front-end app for the API you built.
+
+Create a basic frontend interface (HTML/CSS/JS) that interacts with the API. Must include: 
+– Form to add data
+– Form to edit data
+- Delete data
+– Display of retrieved data
+– Basic styling and layout
