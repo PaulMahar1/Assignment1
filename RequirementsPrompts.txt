@@ -92,3 +92,63 @@ Create a basic frontend interface (HTML/CSS/JS) that interacts with the API. Mus
 - Delete data
 – Display of retrieved data
 – Basic styling and layout
+
+
+---------------------------FRONT END---------------------------
+
+
+Ok everything is working perfectly and the api has been deployed !
+
+Now its time to move on to the front end... The requirements are
+
+Create a Project Requirements Document that clearly defines a front-end app for the API you built.
+
+Create a basic frontend interface (HTML/CSS/JS) that interacts with the API. Must include:
+– Forms to add data
+– Forms to edit data
+
+Delete data
+– Display of retrieved data
+– Basic styling and layout
+So I need you to create a new folder in C:\Users\finch\Documents\SpecialTopics that will serve as the root for the front end. In there I'll need a markdown file similar to the one we have for the backend listing the Project requirements, as well as the frontend code and readme to acompany it. For style I'd like to find a balance between Glassmorphism & Flat Design, with good usage of Asymmetrical Elements.
+
+Used 1 reference
+Created SubscriptionTrackerFrontend
+
+Created frontend-prd.md
+
+Auto approved for this session (Edit)
+
+Created README.md
+
+Auto approved for this session (Edit)
+
+Created index.html
+
+Auto approved for this session (Edit)
+
+Created style.css
+
+Auto approved for this session (Edit)
+
+Created main.js
+
+Auto approved for this session (Edit)
+
+Created .gitignore
+
+Auto approved for this session (Edit)
+
+Created LICENSE
+
+Auto approved for this session (Edit)
+
+Your frontend folder is set up at SubscriptionTrackerFrontend with:
+
+frontend-prd.md: Project requirements document
+README.md: Usage and overview
+index.html: Main app interface
+style.css: Glassmorphism + flat design, asymmetrical layout
+main.js: API integration, CRUD forms, display logic
+.gitignore and LICENSE
+Open index.html in your browser to start using the app. You can now add, edit, delete, and view subscriptions with a modern UI that connects to your deployed API. Let me know if you want to extend or customize any part!
