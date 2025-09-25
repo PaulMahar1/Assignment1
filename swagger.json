@@ -1,0 +1,396 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Subscription Tracker API",
+    "description": "API for managing subscription services and their costs",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://subtrackerapi.onrender.com/api",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/subscriptions": {
+      "get": {
+        "summary": "Get all subscriptions",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string",
+              "enum": ["active", "paused", "cancelled", "expired"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "category_id",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort_by",
+            "schema": {
+              "type": "string",
+              "enum": ["name", "cost", "next_billing_date", "created_at"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort_order",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of subscriptions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new subscription",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Subscription created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get subscription by ID",
+        "responses": {
+          "200": {
+            "description": "Subscription found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subscription not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update subscription",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscriptionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Subscription updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subscription not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete subscription",
+        "responses": {
+          "204": {
+            "description": "Subscription deleted"
+          },
+          "404": {
+            "description": "Subscription not found"
+          }
+        }
+      }
+    },
+    "/payment-accounts": {
+      "get": {
+        "summary": "Get all payment accounts",
+        "responses": {
+          "200": {
+            "description": "List of payment accounts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentAccount"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new payment account",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentAccountInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Payment account created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentAccount"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "Get all categories",
+        "responses": {
+          "200": {
+            "description": "List of categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Subscription": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "cost": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "billing_cycle": {
+            "type": "string",
+            "enum": ["weekly", "monthly", "quarterly", "semi_annual", "annual"]
+          },
+          "billing_day": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          },
+          "next_billing_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "payment_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "category_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "paused", "cancelled", "expired"]
+          },
+          "is_trial": {
+            "type": "boolean",
+            "default": false
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": ["name", "cost", "billing_cycle", "billing_day", "payment_account_id", "category_id", "status", "start_date"]
+      },
+      "SubscriptionInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "cost": {
+            "type": "number",
+            "format": "decimal"
+          },
+          "billing_cycle": {
+            "type": "string",
+            "enum": ["weekly", "monthly", "quarterly", "semi_annual", "annual"]
+          },
+          "billing_day": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          },
+          "payment_account_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "category_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "paused", "cancelled", "expired"]
+          },
+          "is_trial": {
+            "type": "boolean"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "required": ["name", "cost", "billing_cycle", "billing_day", "payment_account_id", "category_id", "status", "start_date"]
+      },
+      "SubscriptionList": {
+        "type": "object",
+        "properties": {
+          "subscriptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subscription"
+            }
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "has_more": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PaymentAccount": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["credit_card", "debit_card", "bank_account", "paypal", "apple_pay", "google_pay", "other"]
+          }
+        },
+        "required": ["name", "type"]
+      },
+      "PaymentAccountInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["credit_card", "debit_card", "bank_account", "paypal", "apple_pay", "google_pay", "other"]
+          }
+        },
+        "required": ["name", "type"]
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          },
+          "is_custom": {
+            "type": "boolean",
+            "default": true
+          }
+        },
+        "required": ["name"]
+      }
+    }
+  }
+}
